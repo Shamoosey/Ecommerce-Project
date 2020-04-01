@@ -1,0 +1,23 @@
+<div class="card">
+  <% if product.image.present? %>
+    <div class="card-image">
+      <figure class="image is-square">
+        <%= image_tag product.image%>
+      </figure>
+    </div>
+  <% end %>
+  <div class="card-content">
+    <div class="media">
+      <div class="media-content">
+        <p class="title is-4"><%= product.name %></p>
+        <p class="subtitle is-6"><%= product.price.round(2) %>$</p>
+      </div>
+      <% if product_page %>
+        <button class="button is-link">Add to Cart</button>
+      <% end %>
+    </div>
+    <div class="content">
+    <%= product.description%>
+    </div>
+  </div>
+</div>
