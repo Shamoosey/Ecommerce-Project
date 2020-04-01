@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Ecommerce Project</title>
+    <title>Analog Trading</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -12,6 +12,14 @@
   </head>
 
   <body>
-    <%= yield %>I
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <div class="navbar-item">
+          <%= image_tag "logo.jpg"%>
+          <h3 class="title is-3 is-bold">Analog Trading</h3>
+        </div>
+      </div>
+    </nav>
+    <%= yield %>
   </body>
 </html>
