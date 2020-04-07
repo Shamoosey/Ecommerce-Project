@@ -1,12 +1,12 @@
 Rails.application.routes.draw do
 
   resources :product, only: :show
-
   root to: 'product#index'
 
   get 'product/id', to: 'product#show', id: /\d+/
   get 'contact', to: 'contact#index', as: 'contact'
   get 'about', to: 'about#index', as: 'about'
+  get 'search', to: 'product#search', as: :search
 
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)

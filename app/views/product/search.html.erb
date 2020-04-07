@@ -1,0 +1,13 @@
+<% if params[:search_term].present?%>
+  <h4 class="title is-4">
+    Found <%= pluralize(@product_results.size, 'result')%> results
+  </h4>
+<% end %>
+
+<div class="columns is-multiline">
+  <% @product_results.each do |product|%>
+    <div class="column is-one-third">
+      <%= link_to render(:partial => 'product', object: product, locals: { product_page: false }), product %>
+    </div>
+  <%end%>
+</div>
