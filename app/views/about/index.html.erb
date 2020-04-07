@@ -1,2 +1,17 @@
-<h1>About#index</h1>
-<p>Find me in app/views/about/index.html.erb</p>
+<div class="card">
+  <div class="card-content">
+    <p class="title">
+      <%= @about.title %>
+    </p>
+    <p class="subtitle">
+      <%= @about.content %>
+    </p>
+  </div>
+  <footer class="card-footer">
+    <p class="card-footer-item">
+      <span>
+        <%= link_to 'Contact Us', contact_path %>
+      </span>
+    </p>
+  </footer>
+</div>
