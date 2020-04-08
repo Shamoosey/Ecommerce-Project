@@ -6,6 +6,18 @@ local:
   service: Disk
   root: <%= Rails.root.join("storage") %>
 
+google:
+  service: GCS
+  project: Ecommerce_Project
+  credentials: <%= ENV['GOOGLE_APPLICATION_CREDENTIALS'].as_json %>
+  bucket: website-pics
+
+google_dev:
+  service: GCS
+  project: Ecommerce_Project
+  credentials: <%= Rails.root.join("config/secrets/product-pictures.json") %>
+  bucket: website-pics
+
 # Use rails credentials:edit to set the AWS secrets (as aws:access_key_id|secret_access_key)
 # amazon:
 #   service: S3
