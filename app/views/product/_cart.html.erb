@@ -1,0 +1,12 @@
+<details>
+  <summary>Shopping Cart</summary>
+  <ul>
+    <% if @cart.count > 0 %>
+      <% @cart.each do |product|%>
+        <li><%= link_to product.name, product%>, <%=product.price%>$ | <%= link_to 'Remove from Cart', remove_from_cart_path(product.id), { :method => :delete }%></li>
+      <% end %>
+    <% else %>
+    <li>Your cart is empty</li>
+    <% end %>
+  </ul>
+</details>

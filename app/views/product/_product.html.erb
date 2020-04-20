@@ -13,12 +13,16 @@
         <p class="subtitle is-6"><%= product.price.round(2) %>$</p>
       </div>
       <% if product_page %>
-        <button class="button is-link">Add to Cart</button>
-      <% end %>
+        <% if @cart.include?(product) %>
+          <%= link_to 'Remove from Cart', remove_from_cart_path(product.id), { :method => :delete, :class => 'button is-light' }%>
+        <% else %>
+          <%= link_to 'Add to Cart', add_to_cart_path(product.id), { :method => :post, :class => 'button is-link' }%>
+        <% end %>
+      <%end%>
     </div>
     <% if product_page %>
       <div class="content">
-        <%= product.description%>
+        <%= product.description %>
       </div>
     <% end %>
   </div>
