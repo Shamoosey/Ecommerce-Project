@@ -2,8 +2,16 @@
   <summary>Shopping Cart</summary>
   <ul>
     <% if @cart.count > 0 %>
-      <% @cart.each do |product|%>
-        <li><%= link_to product.name, product%>, <%=product.price%>$ | <%= link_to 'Remove from Cart', remove_from_cart_path(product.id), { :method => :delete }%></li>
+      <% @cart.each do |id, qty|%>
+      <% product = Product.find(id)%>
+        <li>
+          <%= product.name %>
+          <%= product.price %>$
+        | <%= link_to 'Remove Item', remove_from_cart_path(id), method: :delete %> |
+          <%= link_to '-', decrement_qty_path(id), method: :post %>
+          <%= qty%>
+          <%= link_to '+', increment_qty_path(id), method: :post %>
+        </li>
       <% end %>
     <% else %>
     <li>Your cart is empty</li>
