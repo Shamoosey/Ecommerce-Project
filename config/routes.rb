@@ -5,6 +5,8 @@ Rails.application.routes.draw do
 
   post 'products/add_to_cart/:id', to: 'product#add_to_cart', as: 'add_to_cart'
   delete 'products/remove_from_cart/:id', to: 'product#remove_from_cart', as: 'remove_from_cart'
+  post 'products/decrement/:id', to: 'product#decrement', as: 'decrement_qty'
+  post 'products/increment/:id', to: 'product#increment', as: 'increment_qty'
 
   get 'product/id', to: 'product#show', id: /\d+/
   get 'contact', to: 'contact#index', as: 'contact'
