@@ -40,7 +40,11 @@ class ProductController < ApplicationController
 
   def decrement
     id = params[:id]
-    session[:cart][id] -= 1
+    if(session[:cart][id] > 1)
+      session[:cart][id] -= 1
+    else
+      session[:cart].delete(id)
+    end
     redirect_to root_path
   end
 

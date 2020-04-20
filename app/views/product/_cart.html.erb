@@ -1,9 +1,12 @@
 <details>
   <summary>Shopping Cart</summary>
   <ul>
+  <% totalprice = 0%>
+  <% salesTax = 0.13%>
     <% if @cart.count > 0 %>
       <% @cart.each do |id, qty|%>
       <% product = Product.find(id)%>
+      <% totalprice += (product.price * qty)%>
         <li>
           <%= product.name %>
           <%= product.price %>$
@@ -13,8 +16,13 @@
           <%= link_to '+', increment_qty_path(id), method: :post %>
         </li>
       <% end %>
+      <br/>
+      <li>Subtotal: <%= totalprice %>$</li>
+      <li>Tax: <%=salesTax * totalprice%>$</li>
+      <li>Total: <%=totalprice+(salesTax * totalprice)%>$</li>
     <% else %>
     <li>Your cart is empty</li>
+
     <% end %>
   </ul>
 </details>
