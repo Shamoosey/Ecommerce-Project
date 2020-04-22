@@ -1,0 +1,49 @@
+<div class="card">
+  <header class="card-header">
+    <% if @payment_intent.amount_received == @payment_intent.amount %>
+      <p class="card-header-title">Payment Processed</p>
+      <p class="subtitle"></p>
+    <% else %>
+      <p class="card-header-title">Error Processing Payment</p>
+      <p class="subtitle"></p>
+    <% end %>
+  </header>
+  <div class="card-content">
+    <div class="content">
+      <h2>Invoice</h2>
+      <%= @time%>
+      <table>
+        <thead>
+          <th>Item Name</th>
+          <th>Quantity</th>
+          <th>Price</th>
+        </thead>
+        <tbody>
+        <% @session.display_items.each do |item| %>
+          <tr>
+            <td><%= item.custom.name %></td>
+            <td><%= item.quantity %></td>
+            <td>$<%= item.amount/100 %>.0</td>
+          </tr>
+        <% end %>
+        <tr>
+          <td><b>Subtotal:</b></td>
+          <td></td>
+          <td>$<%= @order.subtotal %></td>
+        </tr>
+        <tr>
+          <td><b>Pst & Gst:</b></td>
+          <td></td>
+          <td>$<%= @order.pst +  @order.gst %></td>
+        </tr>
+        <tr>
+          <td><b>Total:</b></td>
+          <td></td>
+          <td>$<%= @order.totalamount %></td>
+        </tr>
+        </tbody>
+      </table>
+      <%=link_to 'Back to Home Page', root_path %>
+    </div>
+  </div>
+</div>

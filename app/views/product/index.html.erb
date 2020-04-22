@@ -1,3 +1,4 @@
+<%= render partial: 'product/search' %>
 <%= render(:partial => 'cart', object: @cart) %>
 <br/>
 <div class="columns is-multiline is-mobile">
@@ -7,4 +8,4 @@
     </div>
   <%end%>
 </div>
-  <%= paginate @products %>
+<%= paginate @products %>

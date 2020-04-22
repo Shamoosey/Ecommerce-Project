@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_07_214518) do
+ActiveRecord::Schema.define(version: 2020_04_22_211753) do
 
   create_table "abouts", force: :cascade do |t|
     t.string "title"
@@ -81,19 +81,6 @@ ActiveRecord::Schema.define(version: 2020_04_07_214518) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "customers", force: :cascade do |t|
-    t.string "name"
-    t.string "address"
-    t.string "postalcode"
-    t.string "city"
-    t.string "province"
-    t.string "country"
-    t.string "email"
-    t.string "password"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "order_products", force: :cascade do |t|
     t.decimal "subtotal"
     t.datetime "created_at", precision: 6, null: false
@@ -105,6 +92,10 @@ ActiveRecord::Schema.define(version: 2020_04_07_214518) do
     t.decimal "quantity"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "invoice"
+    t.decimal "pst"
+    t.decimal "gst"
+    t.decimal "subtotal"
   end
 
   create_table "pages", force: :cascade do |t|
@@ -119,12 +110,20 @@ ActiveRecord::Schema.define(version: 2020_04_07_214518) do
   create_table "products", force: :cascade do |t|
     t.string "name"
     t.string "description"
-    t.decimal "price"
+    t.integer "price"
     t.decimal "stock"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "category_id"
     t.index ["category_id"], name: "index_products_on_category_id"
+  end
+
+  create_table "taxes", force: :cascade do |t|
+    t.string "province"
+    t.decimal "gst"
+    t.decimal "pst"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"

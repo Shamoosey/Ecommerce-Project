@@ -2,7 +2,7 @@
   <% if product.image.present? %>
     <div class="card-image">
       <figure class="image is-square">
-        <%= image_tag product.image%>
+        <%= image_tag(product.image, alt: product.name)%>
       </figure>
     </div>
   <% end %>

@@ -11,13 +11,18 @@ class ProductController < ApplicationController
   end
 
   def search
-    @product_results = Product.joins(:category).where('products.name LIKE ? AND products.category_id LIKE ?', "%#{params[:search_term]}%", "%#{params[:category_id]}%").page params[:page]
+    if (!params[:search_term].blank? && params[:category_id].blank?) ||
+       (params[:search_term].blank? && !params[:category_id].blank?) ||
+       (!params[:search_term].blank? && !params[:category_id].blank?)
+      @product_results = Product.joins(:category).where('products.name LIKE ? AND products.category_id LIKE ?', "%#{params[:search_term]}%", "%#{params[:category_id]}%").page params[:page]
+    else
+      redirect_to root_path
+    end
   end
 
   def add_to_cart
     id = params[:id].to_i
-    quantity = 1
-    item = { id => quantity }
+    item = { id => 1 }
     session[:cart].merge!(item) unless session[:cart].include?(item)
     redirect_to root_path
   end

@@ -1,4 +1,4 @@
-<% if params[:search_term].present?%>
+<% if params[:search_term].present? || params[:category_id].present?%>
   <h4 class="title is-4">
     Found <%= pluralize(@product_results.size, 'result')%> results
   </h4>
@@ -11,3 +11,4 @@
     </div>
   <%end%>
 </div>
+<%= paginate @product_results %>
