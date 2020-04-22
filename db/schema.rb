@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_22_194225) do
+ActiveRecord::Schema.define(version: 2020_04_22_210326) do
 
   create_table "abouts", force: :cascade do |t|
     t.string "title"
@@ -105,6 +105,9 @@ ActiveRecord::Schema.define(version: 2020_04_22_194225) do
     t.decimal "quantity"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "invoice"
+    t.string "pst"
+    t.string "gst"
   end
 
   create_table "pages", force: :cascade do |t|
@@ -127,10 +130,12 @@ ActiveRecord::Schema.define(version: 2020_04_22_194225) do
     t.index ["category_id"], name: "index_products_on_category_id"
   end
 
-  create_table "sales_taxes", force: :cascade do |t|
-    t.string "Province"
-    t.decimal "GST"
-    t.decimal "PST"
+  create_table "taxes", force: :cascade do |t|
+    t.string "province"
+    t.decimal "gst"
+    t.decimal "pst"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
