@@ -22,8 +22,7 @@ class ProductController < ApplicationController
 
   def add_to_cart
     id = params[:id].to_i
-    quantity = 1
-    item = { id => quantity }
+    item = { id => 1 }
     session[:cart].merge!(item) unless session[:cart].include?(item)
     redirect_to root_path
   end
