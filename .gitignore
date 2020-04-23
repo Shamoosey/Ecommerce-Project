@@ -36,3 +36,4 @@ yarn-debug.log*
 .yarn-integrity
 config/secrets/ecommerce-project-273522-eff7aacff50e.json
 config/secrets/product-pictures.json
+config/initializers/stripe.rb
