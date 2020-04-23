@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_22_211753) do
+ActiveRecord::Schema.define(version: 2020_04_23_173901) do
 
   create_table "abouts", force: :cascade do |t|
     t.string "title"
@@ -85,11 +85,15 @@ ActiveRecord::Schema.define(version: 2020_04_22_211753) do
     t.decimal "subtotal"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "product_id"
+    t.integer "order_id"
+    t.integer "quantity"
+    t.index ["order_id"], name: "index_order_products_on_order_id"
+    t.index ["product_id"], name: "index_order_products_on_product_id"
   end
 
   create_table "orders", force: :cascade do |t|
     t.decimal "totalamount"
-    t.decimal "quantity"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "invoice"
