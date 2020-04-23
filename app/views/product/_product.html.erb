@@ -10,7 +10,7 @@
     <div class="media">
       <div class="media-content">
         <p class="title is-4"><%= product.name %></p>
-        <p class="subtitle is-6"><%= product.price.round(2) %>$</p>
+        <p class="subtitle is-6">$<%= product.price.round(2) %></p>
       </div>
       <% if product_page %>
         <% if @cart.keys.to_s.include?(product.id.to_s) %>

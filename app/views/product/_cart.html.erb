@@ -1,13 +1,12 @@
 <details>
   <summary>Shopping Cart</summary>
   <ul>
-  <%= debug session[:tax]%>
     <% if @cart.count > 0 %>
       <% @cart.each do |id, qty|%>
       <% product = Product.find(id)%>
         <li>
           <%= product.name %>
-          <%= product.price %>$
+          $<%= product.price %>
         | <%= link_to 'Remove Item', remove_from_cart_path(id), method: :delete %> |
           <%= link_to '-', decrement_qty_path(id), method: :post %>
           <%= qty%>
@@ -29,3 +28,4 @@
     <% end %>
   </div>
 </details>
+<br/>
