@@ -14,33 +14,35 @@
       <%= @time%>
       <table>
         <thead>
-          <th>Item Name</th>
-          <th>Quantity</th>
-          <th>Price</th>
+          <tr>
+            <th>Item Name</th>
+            <th>Quantity</th>
+            <th>Price</th>
+          </tr>
         </thead>
         <tbody>
-        <% @session.display_items.each do |item| %>
+          <% @order.order_products.each do |item| %>
+            <tr>
+              <td><%= item.product.name %></td>
+              <td><%= item.quantity %></td>
+              <td>$<%= item.quantity * item.product.price %>.0</td>
+            </tr>
+          <% end %>
           <tr>
-            <td><%= item.custom.name %></td>
-            <td><%= item.quantity %></td>
-            <td>$<%= item.amount/100 %>.0</td>
+            <td><b>Subtotal:</b></td>
+            <td></td>
+            <td>$<%= @order.subtotal %></td>
           </tr>
-        <% end %>
-        <tr>
-          <td><b>Subtotal:</b></td>
-          <td></td>
-          <td>$<%= @order.subtotal %></td>
-        </tr>
-        <tr>
-          <td><b>Pst & Gst:</b></td>
-          <td></td>
-          <td>$<%= @order.pst +  @order.gst %></td>
-        </tr>
-        <tr>
-          <td><b>Total:</b></td>
-          <td></td>
-          <td>$<%= @order.totalamount %></td>
-        </tr>
+          <tr>
+            <td><b>Pst & Gst:</b></td>
+            <td></td>
+            <td>$<%= @order.subtotal* ( @order.pst +  @order.gst )%></td>
+          </tr>
+          <tr>
+            <td><b>Total:</b></td>
+            <td></td>
+            <td>$<%= @order.totalamount %></td>
+          </tr>
         </tbody>
       </table>
       <%=link_to 'Back to Home Page', root_path %>
