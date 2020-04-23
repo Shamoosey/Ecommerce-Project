@@ -34,10 +34,8 @@ class CheckoutController < ApplicationController
         quantity: qty
       }
 
-      quantity += qty
-      price += product.price
-      totalPrice += (product.price + gst + pst)
-      puts totalPrice
+      price += (product.price * qty)
+      totalPrice += ((product.price + gst + pst) * qty)
       checkout_items << checkout_item
     end
 
@@ -49,13 +47,21 @@ class CheckoutController < ApplicationController
     )
 
     order = Order.create(
-      quantity: quantity,
       totalamount: totalPrice,
       subtotal: price,
       invoice: @session.id,
       pst: pstRate,
       gst: gstRate
     )
+
+    items.each do |id, qty|
+      product = Product.find(id)
+      order.order_products.create(
+        product: product,
+        subtotal: product,
+        quantity: qty
+      )
+    end
 
     respond_to do |format|
       format.js
