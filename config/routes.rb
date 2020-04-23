@@ -1,5 +1,6 @@
-Rails.application.routes.draw do
+# frozen_string_literal: true
 
+Rails.application.routes.draw do
   scope '/checkout' do
     post 'create', to: 'checkout#create', as: 'checkout_create'
     get 'cancel', to: 'checkout#cancel', as: 'checkout_cancel'
@@ -14,6 +15,7 @@ Rails.application.routes.draw do
   post 'products/decrement/:id', to: 'product#decrement', as: 'decrement_qty'
   post 'products/increment/:id', to: 'product#increment', as: 'increment_qty'
 
+  get 'province', to: 'checkout#province', as: 'confirm_province'
   get 'product/id', to: 'product#show', id: /\d+/
   get 'contact', to: 'contact#index', as: 'contact'
   get 'about', to: 'about#index', as: 'about'

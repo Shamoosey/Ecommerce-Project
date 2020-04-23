@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
 class CheckoutController < ApplicationController
+  before_action :initialize_session
+
   def create
     items = session[:cart]
-
     products = Product.find(items.keys)
 
     if products.nil?
@@ -12,21 +13,31 @@ class CheckoutController < ApplicationController
     end
 
     checkout_items = []
-
     price = 0
     quantity = 0
+    totalPrice = 0
+
+    tax = Tax.find(session[:tax]['id'])
+    pstRate = (tax.pst / 100)
+    gstRate = (tax.gst / 100)
 
     items.each do |id, qty|
       product = Product.find(id)
+      pst = product.price * pstRate
+      gst = product.price * gstRate
+
       checkout_item = {
         name: product.name,
         description: product.description,
-        amount: product.price * 100,
+        amount: ((product.price + gst + pst) * 100).to_i,
         currency: 'CAD',
         quantity: qty
       }
+
       quantity += qty
       price += product.price
+      totalPrice += (product.price + gst + pst)
+      puts totalPrice
       checkout_items << checkout_item
     end
 
@@ -37,20 +48,13 @@ class CheckoutController < ApplicationController
       cancel_url: checkout_cancel_url
     )
 
-    manitoba = Tax.where(province: 'Manitoba').first
-
-    pst = price * (manitoba.pst / 100)
-    gst = price * (manitoba.gst / 100)
-
-    totalPrice = (price + pst + gst)
-
-    Order.create(
+    order = Order.create(
       quantity: quantity,
       totalamount: totalPrice,
       subtotal: price,
       invoice: @session.id,
-      pst: pst,
-      gst: gst
+      pst: pstRate,
+      gst: gstRate
     )
 
     respond_to do |format|
@@ -66,5 +70,16 @@ class CheckoutController < ApplicationController
 
     @order = Order.where(invoice: params[:session_id]).first
     session[:cart] = {}
+  end
+
+  def province
+    id = params[:province_id]
+    session[:tax] = Tax.find(id)
+    redirect_to root_path
+  end
+
+  def initialize_session
+    session[:cart] ||= {}
+    session[:tax] ||= Tax.where(province: 'Manitoba').first
   end
 end

@@ -1,6 +1,7 @@
 <details>
   <summary>Shopping Cart</summary>
   <ul>
+  <%= debug session[:tax]%>
     <% if @cart.count > 0 %>
       <% @cart.each do |id, qty|%>
       <% product = Product.find(id)%>
@@ -18,4 +19,13 @@
     <li>Your cart is empty</li>
     <% end %>
   </ul>
+  <br/>
+  <div class="control">
+    <%= form_with(url: confirm_province_path, local: true, method: "get") do %>
+      <span class="select">
+        <%= select_tag "province_id", options_from_collection_for_select(Tax.all, "id", "province", session[:tax]['id']), class: 'select' %>
+      </span>
+      <%= submit_tag("Confirm Province", :class=>"button is-info") %>
+    <% end %>
+  </div>
 </details>
